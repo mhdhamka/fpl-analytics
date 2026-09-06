@@ -8,6 +8,7 @@ A production-grade, modular Python analytics and machine learning pipeline built
 ![Python](https://img.shields.io/badge/Python-3.x-3776ab?logo=python&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-2.x-150458?logo=pandas&logoColor=white)
 ![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-F7931E?logo=scikit-learn&logoColor=white)
+![XGBoost](https://img.shields.io/badge/XGBoost-EB6864?logo=xgboost&logoColor=white)
 ![Seaborn](https://img.shields.io/badge/Seaborn-3776AB?logo=python&logoColor=white)
 ![Matplotlib](https://img.shields.io/badge/Matplotlib-3776AB?logo=python&logoColor=white)
 
