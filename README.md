@@ -1,6 +1,6 @@
 <div align="center">
 
-# Premier League Performance Analytics Pipeline (`pl-analytics`)
+# Fantasy Premier League Performance Analytics Pipeline (`fpl-analytics`)
 
 A modular Python analytics and machine learning pipeline built to ingest, process, visualize, and model real-time player data from the Premier League. Designed with clean architecture principles to deliver data-driven insights into player performance, expected metrics ($xG$), and points prediction.
 
@@ -20,7 +20,7 @@ A modular Python analytics and machine learning pipeline built to ingest, proces
 
 ## Overview
 
-The **Premier League Performance Analytics Pipeline** is an end-to-end data engineering and predictive modeling project tailored for sports analytics and Fantasy Premier League (FPL) management. 
+The **Fantasy Premier League Performance Analytics Pipeline** is an end-to-end data engineering and predictive modeling project tailored for sports analytics and Fantasy Premier League (FPL) management. 
 
 Managing raw football data can be messy and fragmented. This project automates the entire lifecycle—from pulling live data straight off official league endpoints to structuring clean datasets, generating exploratory data visualizations, and deploying machine learning models to forecast player performance. It highlights professional software engineering standards, featuring modular design (`src/`), a master orchestration script (`main.py`), and interactive EDA notebooks.
 
