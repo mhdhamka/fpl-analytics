@@ -1,9 +1,3 @@
-"""Central logging configuration.
-
-Replaces scattered `print()` calls with proper leveled logging that writes to
-both the console and a rotating log file, so pipeline runs (especially in
-CI/cron) leave a debuggable trail.
-"""
 import logging
 import os
 from logging.handlers import RotatingFileHandler
