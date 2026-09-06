@@ -29,28 +29,44 @@ Managing raw football data can be messy and fragmented. This project automates t
 ## Tech Stack & Libraries
 
 * **Language:** Python 3.x
-* **Data Manipulation & Analysis:** Pandas, NumPy
+* **Data Manipulation & Analysis:** Pandas, NumPy, Pandera (runtime schema validation)
+* **Web Services & UI:** FastAPI, Uvicorn, Streamlit
+* **Machine Learning:** Scikit-learn (RandomizedSearchCV, Random Forest), XGBoost
 * **Data Visualization:** Seaborn, Matplotlib
-* **Machine Learning:** Scikit-learn (Random Forest Regressor), XGBoost
-* **Data Ingestion & DevOps:** Requests (Live FPL API), Pytest,
+* **Data Ingestion & DevOps:** Requests (Live FPL API), Pytest, Docker, GitHub Actions CI/CD
 
 ---
 
 ## Core Features & Pipeline Steps
 
-1. **Automated Data Ingestion (`src/ingest.py`)**: Implements fault-tolerant HTTP integration to pull live bootstrap data straight from the official Premier League API, structuring raw JSON payloads into version-controlled backups.
+1. **Fault-Tolerant Data Ingestion (`src/ingest.py`)**: 
+   * Pulls live bootstrap data straight from official league endpoints.
+   * Implements robust retry logic with **exponential backoff** to handle network hiccups gracefully.
+   * Maintains a timestamped historical ledger of every fetch (`data/history/`) instead of overwriting files.
 
-2. **Robust Data Wrangling & Engineering (`src/clean.py`)**: Executes programmatic relational mapping (merging player attributes with team and position metadata), handles missing data vectors, and engineers advanced features like scaled market valuations (`market_value_m`).
+2. **Rigorous Data Wrangling & Schema Validation (`src/clean.py`)**: 
+   * Programmatically executes relational mapping (merging player attributes with team and position metadata).
+   * Validates raw and cleaned data frames against an explicit schema via **`pandera`** (with a dependency-free fallback if not installed).
+   * Engineers advanced attributes: per-90 rate metrics, a points-per-£million value index, and one-hot encoded player positions so that **position is a real model feature** rather than ignored.
 
-3. **Automated Visualization Engine (`src/visualize.py`)**: Programmatically generates and serializes publication-grade analytics plots using Seaborn and Matplotlib with automated directory provisioning:
-   * Top 10 Goalscorers Bar Chart (`outputs/figures/top_goalscorers.png`)
-   * Expected Goals ($xG$) vs. Actual Goals Scatter Plot (`outputs/figures/xg_vs_actual_goals.png`)
+3. **Automated Visualization Engine (`src/visualize.py`)**: 
+   * Programmatically generates and serializes publication-grade analytics charts with automated directory provisioning:
+     * Top 10 Goalscorers Bar Chart (`outputs/figures/top_goalscorers.png`)
+     * Expected Goals ($xG$) vs. Actual Goals Scatter Plot (`outputs/figures/xg_vs_actual_goals.png`)
 
-4. **Exploratory Data Analysis (`notebooks/01_eda.ipynb`)**: Features a structured exploratory notebook containing statistical distributions, positional performance benchmarking, and feature correlation heatmaps.
+4. **Exploratory Data Analysis (`notebooks/01_eda.ipynb`)**: 
+   * Features a structured exploratory notebook containing statistical distributions, positional performance benchmarking, and feature correlation heatmaps.
 
-5. **Advanced Predictive Modeling & Benchmarking (`src/model.py`)**: Benchmarks supervised regressors (**Random Forest vs. XGBoost**) using rigorous **5-Fold Cross-Validation** to forecast player fantasy point returns based on underlying core metrics, yielding high predictive fidelity ($R^2 \approx 0.84$) and automated feature importance tracking.
+5. **Optimized Predictive Modeling & Persistence (`src/model.py`)**: 
+   * Benchmarks supervised regressors (**Random Forest vs. XGBoost**) utilizing **Randomized Hyperparameter Search** and rigorous 5-Fold Cross-Validation.
+   * **Persists the winning pipeline to disk** alongside metadata, meaning the app and API load pre-trained models instantly rather than forcing runtime retraining on every session or request.
 
-6. **Centralized Configuration Architecture (`src/config.py`)**: Implements a single-source-of-truth configuration pattern managing all global paths, API endpoints, and feature vectors, completely eradicating hardcoded magic strings from the codebase.
+6. **Dual Consumption Layers (App & API)**: 
+   * **Streamlit Dashboard (`app.py`)**: Interactive UI for exploring data, viewing metrics, and checking player point forecasts.
+   * **FastAPI Service (`api/main.py`)**: High-performance backend providing endpoints (`/predict`, `/players`, `/model/metadata`) for external application integration.
+
+7. **Structured Logging & Enterprise Standards**: 
+   * Replaces traditional `print()` debugging with a centralized logging configuration (`src/logging_config.py`) writing cleanly formatted outputs to both the console and a **rotating log file**.
 
 ---
 
@@ -69,25 +85,78 @@ cd pl-analytics
 ```cmd
 pip install -r requirements.txt
 
+pip install -r requirements-dev.txt
+
 ```
 
 ### 3. Run the Entire Pipeline
 
 Execute the master execution script to fetch fresh data, clean it, generate updated charts, and train the machine learning model in one command:
 
-```cmd
+```bash
+# Option A: run against the live FPL API
 python main.py
 
+# Option B: no network / just trying it out
+python scripts/generate_sample_data.py
+python main.py   # will use the sample data already in data/raw/
+
+streamlit run app.py                 # dashboard at localhost:8501
+uvicorn api.main:app --reload        # API + docs at localhost:8000/docs
+
 ```
+Or with Docker:
+
+```bash
+docker compose up --build
+```
+
 
 ### 4. Run Unit Tests
 
 To execute the test suite locally using pytest:
 
-```cmd
-python -m pytest
+```bash
+pip install -r requirements-dev.txt
+
+# For Windows PowerShell:
+$env:PYTHONPATH="."; pytest
+
+# For Windows CMD:
+set PYTHONPATH=. && pytest
+
+# For Linux / macOS:
+PYTHONPATH=. pytest
 
 ```
+
+---
+
+## What changed from the original version
+
+This is a rebuild of an earlier, simpler version of this project. Notable
+upgrades:
+
+- **Ingestion** now retries with exponential backoff and keeps a timestamped
+  history of every fetch (`data/history/`), not just a single overwritten CSV.
+- **Data validation**: cleaned/raw data is checked against an explicit schema
+  before it's used downstream (via `pandera`, with a dependency-free fallback
+  if it isn't installed).
+- **Feature engineering** now includes per-90 rate stats and a
+  points-per-£million value metric, and player **position is a real model
+  feature** (one-hot encoded) instead of being ignored.
+- **Model training** does randomized hyperparameter search (not just
+  defaults) and **persists the winning pipeline to disk** — the app and API
+  load a trained model instead of retraining on every session/request.
+- **Two ways to consume the model**: the Streamlit dashboard, and a FastAPI
+  service (`/predict`, `/players`, `/model/metadata`) for anything else that
+  wants predictions.
+- **Tests, CI, Docker**: a pytest suite covering ingestion, cleaning,
+  features, and modeling; a GitHub Actions workflow that lints, tests, and
+  builds both Docker images; and a Dockerfile with separate targets for the
+  dashboard and the API.
+- **Logging** replaces `print()` throughout, writing to both console and a
+  rotating log file.
 
 ---
 
@@ -108,35 +177,27 @@ python -m pytest
 
 ```text
 pl-analytics/
-│
-├── .github/
-│   └── workflows/
-│       └── pipeline.yml    # GitHub Actions CI/CD automation workflow
-│
-├── data/
-│   ├── raw/                # Original API responses or raw CSV backups
-│   └── processed/          # Cleaned datasets saved as CSV
-│
-├── notebooks/
-│   └── 01_eda.ipynb        # Jupyter notebooks for exploratory data analysis
-│
+├── .github/workflows/pipeline.yml   # CI: lint, test, smoke-test, docker build
+├── api/main.py                      # FastAPI service (predict, players, metadata)
+├── app.py                           # Streamlit dashboard (loads the persisted model)
+├── data/{raw,processed,history}     # raw="latest" snapshot, history=timestamped runs
+├── models/                          # persisted model + metadata.json (gitignored)
+├── notebooks/01_eda.ipynb           # exploratory analysis
+├── outputs/figures/                 # generated charts (gitignored)
+├── scripts/generate_sample_data.py  # synthetic data for offline dev/CI
 ├── src/
-│   ├── __init__.py         # Makes src a package
-│   ├── ingest.py           # API connection and live data fetching[cite: 3]
-│   ├── clean.py            # Preprocessing, filtering, and feature engineering[cite: 2]
-│   ├── visualize.py        # Matplotlib/Seaborn automated plotting functions[cite: 1]
-│   └── model.py            # Scikit-learn machine learning regression model
-│
-├── tests/
-│   └── test_config.py      # Pytest unit tests for configuration and setup
-│
-├── outputs/
-│   └── figures/            # Saved chart images and visual exports (top scorers, xG plots)
-│
-├── .gitignore              # Files to ignore (e.g., venv, __pycache__)
-├── requirements.txt        # Project dependencies (pandas, requests, seaborn, scikit-learn)
-└── main.py                 # Master execution script to run the pipeline end-to-end[cite: 1, 2, 3]
-
+│   ├── config.py                    # single source of truth, env-overridable
+│   ├── logging_config.py            # structured logging (console + rotating file)
+│   ├── ingest.py                    # retry/backoff API fetch + versioned snapshots
+│   ├── clean.py                     # merge, validate, engineer features
+│   ├── features.py                  # per-90 rates, value metrics
+│   ├── model.py                     # tuned RF vs XGBoost benchmark + persistence
+│   └── predict.py                   # shared inference layer (app + API both use this)
+├── tests/                           # pytest suite for every module above
+├── Dockerfile                       # multi-target build: streamlit / api
+├── docker-compose.yml
+├── Makefile
+└── main.py                          # orchestrates ingest -> clean -> visualize -> train
 ```
 
 ---
@@ -165,4 +226,5 @@ If you found this project interesting, consider giving it a star ⭐
 Crafted by **[@mhdhamka](https://github.com/mhdhamka)**
 
 </div>
+
 

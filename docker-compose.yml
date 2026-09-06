@@ -1,0 +1,35 @@
+services:
+  pipeline:
+    build:
+      context: .
+      target: base
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./outputs:/app/outputs
+      - ./logs:/app/logs
+    command: ["python", "main.py"]
+
+  streamlit:
+    build:
+      context: .
+      target: streamlit
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+    depends_on:
+      - pipeline
+
+  api:
+    build:
+      context: .
+      target: api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+    depends_on:
+      - pipeline

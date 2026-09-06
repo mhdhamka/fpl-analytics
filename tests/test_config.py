@@ -1,16 +1,27 @@
 import os
-from src.config import BASE_DIR, FPL_API_URL, PLAYERS_CLEANED_PATH
 
-def test_base_directory():
-    """Ensure the base directory exists."""
-    assert os.path.exists(BASE_DIR)
+from src import config
 
-def test_api_url():
-    """Ensure the FPL API URL is correctly formatted."""
-    assert isinstance(FPL_API_URL, str)
-    assert "fantasy.premierleague.com" in FPL_API_URL
 
-def test_paths_defined():
-    """Ensure core file paths are strings pointing inside the project."""
-    assert isinstance(PLAYERS_CLEANED_PATH, str)
-    assert "players_cleaned.csv" in PLAYERS_CLEANED_PATH
+def test_paths_are_absolute():
+    for path_attr in [
+        "RAW_DATA_DIR", "PROCESSED_DATA_DIR", "FIGURES_DIR", "MODEL_DIR",
+        "PLAYERS_RAW_PATH", "PLAYERS_CLEANED_PATH", "MODEL_PATH",
+    ]:
+        assert os.path.isabs(getattr(config, path_attr))
+
+
+def test_ml_features_has_no_duplicates_and_matches_base_plus_engineered():
+    assert len(config.ML_FEATURES) == len(set(config.ML_FEATURES))
+    assert config.ML_FEATURES == config.ML_BASE_FEATURES + config.ML_ENGINEERED_FEATURES
+
+
+def test_env_override(monkeypatch):
+    monkeypatch.setenv("MIN_MINUTES_THRESHOLD", "500")
+    import importlib
+
+    reloaded = importlib.reload(config)
+    assert reloaded.MIN_MINUTES_THRESHOLD == 500
+    # reload back to defaults for any subsequent tests importing config
+    monkeypatch.delenv("MIN_MINUTES_THRESHOLD", raising=False)
+    importlib.reload(config)
