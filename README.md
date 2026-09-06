@@ -35,19 +35,19 @@ Managing raw football data can be messy and fragmented. This project automates t
 
 ## Core Features & Pipeline Steps
 
-1. **Live Data Ingestion (`src/ingest.py`)**: Connects directly to the official Premier League data endpoints to pull live player statistics, team details, and position mapping.
+1. **Automated Data Ingestion (`src/ingest.py`)**: Implements fault-tolerant HTTP integration to pull live bootstrap data straight from the official Premier League API, structuring raw JSON payloads into version-controlled backups.
 
-2. **Data Cleaning & Feature Engineering (`src/clean.py`)**: Handles null values, maps categorical IDs to readable text names (teams and positions), and creates custom features like scaled market values (`market_value_m`).
+2. **Robust Data Wrangling & Engineering (`src/clean.py`)**: Executes programmatic relational mapping (merging player attributes with team and position metadata), handles missing data vectors, and engineers advanced features like scaled market valuations (`market_value_m`).
 
-3. **Automated Visualization (`src/visualize.py`)**: Automatically renders and exports publication-quality plots:
-* Top 10 Goalscorers Bar Chart (`outputs/figures/top_goalscorers.png`)
+3. **Automated Visualization Engine (`src/visualize.py`)**: Programmatically generates and serializes publication-grade analytics plots using Seaborn and Matplotlib with automated directory provisioning:
+   * Top 10 Goalscorers Bar Chart (`outputs/figures/top_goalscorers.png`)
+   * Expected Goals ($xG$) vs. Actual Goals Scatter Plot (`outputs/figures/xg_vs_actual_goals.png`)
 
-* Expected Goals ($xG$) vs. Actual Goals Scatter Plot (`outputs/figures/xg_vs_actual_goals.png`)
+4. **Exploratory Data Analysis (`notebooks/01_eda.ipynb`)**: Features a structured exploratory notebook containing statistical distributions, positional performance benchmarking, and feature correlation heatmaps.
 
-4. **Exploratory Data Analysis (`notebooks/01_eda.ipynb`)**: An interactive notebook covering statistical summaries, position-wise performance breakdowns, and feature correlation heatmaps.
-5. **Predictive Modeling (`src/model.py`)**: Trains a supervised **Random Forest Regressor** to predict player total fantasy/performance points based on underlying metrics (Minutes played, goals, assists, clean sheets, and $xG$), achieving strong predictive accuracy ($R^2 \approx 0.84$).
+5. **Predictive Machine Learning Pipeline (`src/model.py`)**: Trains an optimized supervised **Random Forest Regressor** to forecast player fantasy point returns based on underlying core metrics, yielding high predictive fidelity ($R^2 \approx 0.84$) and automated feature importance tracking.
 
-6. **Centralized Configuration (`src/config.py`)**: Manages all API endpoints, file paths, and machine learning feature arrays in a single location, eliminating hardcoded values across the codebase.
+6. **Centralized Configuration Architecture (`src/config.py`)**: Implements a single-source-of-truth configuration pattern managing all global paths, API endpoints, and feature vectors, completely eradicating hardcoded magic strings from the codebase.
 
 ---
 
