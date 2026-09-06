@@ -4,7 +4,7 @@
 
 A modular Python analytics and machine learning pipeline built to ingest, process, visualize, and model real-time player data from the Premier League. Designed with clean architecture principles to deliver data-driven insights into player performance, expected metrics ($xG$), and points prediction.
 
-[Live Demo](https://fpremier-league-analytics.streamlit.app/) · [Report Bug](https://github.com/mhdhamka/pl-analytics/issues) · [Request Feature](https://github.com/mhdhamka/pl-analytics/issues)
+[Live Demo](https://fpremier-league-analytics.streamlit.app/) · [Report Bug](https://github.com/mhdhamka/fpl-analytics/issues) · [Request Feature](https://github.com/mhdhamka/fpl-analytics/issues)
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/Python-3.x-3776ab?logo=python&logoColor=white)
