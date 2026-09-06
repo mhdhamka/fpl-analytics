@@ -28,8 +28,8 @@ Managing raw football data can be messy and fragmented. This project automates t
 * **Language:** Python 3.x
 * **Data Manipulation & Analysis:** Pandas, NumPy
 * **Data Visualization:** Seaborn, Matplotlib
-* **Machine Learning:** Scikit-learn (Random Forest Regressor)
-* **Data Ingestion:** Requests (Live Fantasy Premier League API)
+* **Machine Learning:** Scikit-learn (Random Forest Regressor), XGBoost
+* **Data Ingestion & DevOps:** Requests (Live FPL API), Pytest,
 
 ---
 
@@ -45,7 +45,7 @@ Managing raw football data can be messy and fragmented. This project automates t
 
 4. **Exploratory Data Analysis (`notebooks/01_eda.ipynb`)**: Features a structured exploratory notebook containing statistical distributions, positional performance benchmarking, and feature correlation heatmaps.
 
-5. **Predictive Machine Learning Pipeline (`src/model.py`)**: Trains an optimized supervised **Random Forest Regressor** to forecast player fantasy point returns based on underlying core metrics, yielding high predictive fidelity ($R^2 \approx 0.84$) and automated feature importance tracking.
+5. **Advanced Predictive Modeling & Benchmarking (`src/model.py`)**: Benchmarks supervised regressors (**Random Forest vs. XGBoost**) using rigorous **5-Fold Cross-Validation** to forecast player fantasy point returns based on underlying core metrics, yielding high predictive fidelity ($R^2 \approx 0.84$) and automated feature importance tracking.
 
 6. **Centralized Configuration Architecture (`src/config.py`)**: Implements a single-source-of-truth configuration pattern managing all global paths, API endpoints, and feature vectors, completely eradicating hardcoded magic strings from the codebase.
 
@@ -77,11 +77,21 @@ python main.py
 
 ```
 
+### 4. Run Unit Tests
+
+To execute the test suite locally using pytest:
+
+```cmd
+python -m pytest
+
+```
+
 ---
 
 ## Model Performance Overview
 
 * **Algorithm:** Random Forest Regressor
+* **Evaluation Strategy**: 5-Fold Cross-Validation & Hold-out Test Split
 * **Target Variable:** Total Points
 * **Performance ($R^2$ Score):** ~0.84
 * **Key Drivers:** Minutes played and goals scored hold the highest feature importances in driving overall player output.
@@ -96,6 +106,10 @@ python main.py
 ```text
 pl-analytics/
 │
+├── .github/
+│   └── workflows/
+│       └── pipeline.yml    # GitHub Actions CI/CD automation workflow
+│
 ├── data/
 │   ├── raw/                # Original API responses or raw CSV backups
 │   └── processed/          # Cleaned datasets saved as CSV
@@ -109,6 +123,9 @@ pl-analytics/
 │   ├── clean.py            # Preprocessing, filtering, and feature engineering[cite: 2]
 │   ├── visualize.py        # Matplotlib/Seaborn automated plotting functions[cite: 1]
 │   └── model.py            # Scikit-learn machine learning regression model
+│
+├── tests/
+│   └── test_config.py      # Pytest unit tests for configuration and setup
 │
 ├── outputs/
 │   └── figures/            # Saved chart images and visual exports (top scorers, xG plots)
