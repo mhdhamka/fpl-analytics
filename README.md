@@ -2,7 +2,7 @@
 
 # Premier League Performance Analytics Pipeline (`pl-analytics`)
 
-A production-grade, modular Python analytics and machine learning pipeline built to ingest, process, visualize, and model real-time player data from the Premier League. Designed with clean architecture principles to deliver data-driven insights into player performance, expected metrics ($xG$), and points prediction.
+A modular Python analytics and machine learning pipeline built to ingest, process, visualize, and model real-time player data from the Premier League. Designed with clean architecture principles to deliver data-driven insights into player performance, expected metrics ($xG$), and points prediction.
 
 [Live Demo](https://fpremier-league-analytics.streamlit.app/) · [Report Bug](https://github.com/mhdhamka/pl-analytics/issues) · [Request Feature](https://github.com/mhdhamka/pl-analytics/issues)
 
