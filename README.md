@@ -47,6 +47,8 @@ Managing raw football data can be messy and fragmented. This project automates t
 4. **Exploratory Data Analysis (`notebooks/01_eda.ipynb`)**: An interactive notebook covering statistical summaries, position-wise performance breakdowns, and feature correlation heatmaps.
 5. **Predictive Modeling (`src/model.py`)**: Trains a supervised **Random Forest Regressor** to predict player total fantasy/performance points based on underlying metrics (Minutes played, goals, assists, clean sheets, and $xG$), achieving strong predictive accuracy ($R^2 \approx 0.84$).
 
+6. **Centralized Configuration (`src/config.py`)**: Manages all API endpoints, file paths, and machine learning feature arrays in a single location, eliminating hardcoded values across the codebase.
+
 ---
 
 ## Getting Started & Installation
@@ -83,6 +85,9 @@ python main.py
 * **Target Variable:** Total Points
 * **Performance ($R^2$ Score):** ~0.84
 * **Key Drivers:** Minutes played and goals scored hold the highest feature importances in driving overall player output.
+
+### Sample Visualization: Top Goalscorers
+![Top Goalscorers](outputs/figures/top_goalscorers.png)
 
 ---
 
