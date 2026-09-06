@@ -4,7 +4,7 @@ import pandas as pd
 import streamlit as st
 
 from src.config import PLAYERS_CLEANED_PATH
-from src.model import ALL_MODEL_FEATURES, load_feature_importances
+from src.model import load_feature_importances
 from src.predict import ModelNotTrainedError, load_metadata, load_model, predict_points
 
 # Use the local PNG for the browser tab icon, with an emoji fallback if missing

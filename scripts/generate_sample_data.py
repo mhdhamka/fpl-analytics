@@ -3,13 +3,13 @@ offline testing, and CI — none of which should depend on hitting the live
 API. Run this once, then `python -m src.clean` / `python -m src.model` work
 exactly as they would on real data.
 """
+import os
 import random
 
 import numpy as np
 import pandas as pd
 
-from src.config import POSITIONS_RAW_PATH, PLAYERS_RAW_PATH, RAW_DATA_DIR, TEAMS_RAW_PATH
-import os
+from src.config import PLAYERS_RAW_PATH, POSITIONS_RAW_PATH, RAW_DATA_DIR, TEAMS_RAW_PATH
 
 random.seed(7)
 np.random.seed(7)

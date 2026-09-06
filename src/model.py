@@ -1,20 +1,6 @@
-"""Trains, tunes, benchmarks, and persists the fantasy-points regression model.
-
-Key upgrades over the original version:
-  * Position is now a modeled feature (one-hot encoded) instead of being
-    ignored — a midfielder and a defender convert minutes into points very
-    differently.
-  * Randomized hyperparameter search (not just default params) for both
-    candidate algorithms.
-  * The winning pipeline (preprocessing + model) is persisted to disk via
-    joblib, alongside a metadata.json (metrics, params, feature list,
-    timestamp) — inference no longer needs to retrain from scratch.
-  * Low-minute players are excluded from training since their rate stats
-    (goals/90 etc.) are noisy small-sample artifacts.
-"""
 import json
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import joblib
 import pandas as pd
@@ -25,7 +11,6 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import (
     KFold,
     RandomizedSearchCV,
-    cross_val_score,
     train_test_split,
 )
 from sklearn.pipeline import Pipeline
@@ -192,7 +177,7 @@ def train_points_model(
 
         metadata = {
             "model_name": best_name,
-            "trained_at_utc": datetime.now(timezone.utc).isoformat(),
+            "trained_at_utc": datetime.now(UTC).isoformat(),
             "cv_r2": best["cv_r2"],
             "test_r2": best["test_r2"],
             "test_mae": best["test_mae"],

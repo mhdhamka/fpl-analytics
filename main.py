@@ -1,4 +1,4 @@
-from src.clean import clean_data, DataValidationError
+from src.clean import DataValidationError, clean_data
 from src.ingest import IngestionError, save_raw_data
 from src.logging_config import get_logger
 from src.model import load_feature_importances, train_points_model

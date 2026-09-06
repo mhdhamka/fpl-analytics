@@ -10,8 +10,8 @@ import joblib
 import pandas as pd
 
 from src.config import MODEL_METADATA_PATH, MODEL_PATH
-from src.model import ALL_MODEL_FEATURES
 from src.logging_config import get_logger
+from src.model import ALL_MODEL_FEATURES
 
 logger = get_logger(__name__)
 

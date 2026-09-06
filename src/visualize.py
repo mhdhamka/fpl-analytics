@@ -122,7 +122,7 @@ def plot_value_picks(df_path: str = PLAYERS_CLEANED_PATH, top_n: int = 15):
 
     sns.set_theme(style="whitegrid")
     plt.figure(figsize=(10, 7))
-    ax = sns.barplot(
+    sns.barplot(
         x="points_per_million", y="full_name", data=top_value,
         hue="position", dodge=False, palette="viridis",
     )

@@ -1,4 +1,3 @@
-import pandas as pd
 import pytest
 
 import src.clean as clean_module

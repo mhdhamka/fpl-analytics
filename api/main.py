@@ -9,7 +9,6 @@ and so Streamlit itself can eventually call this instead of importing
 src.model directly.
 """
 import os
-from typing import Optional
 
 import pandas as pd
 from fastapi import FastAPI, HTTPException
@@ -78,7 +77,7 @@ def feature_importance():
     try:
         model = _get_model()
     except ModelNotTrainedError as exc:
-        raise HTTPException(status_code=404, detail=str(exc))
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
     df = load_feature_importances(model)
     return df.to_dict(orient="records")
 
@@ -88,7 +87,7 @@ def predict(features: PlayerFeatures):
     try:
         model = _get_model()
     except ModelNotTrainedError as exc:
-        raise HTTPException(status_code=404, detail=str(exc))
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
 
     row = pd.DataFrame([features.model_dump()])
     missing = [c for c in ALL_MODEL_FEATURES if c not in row.columns]
@@ -104,7 +103,7 @@ def predict(features: PlayerFeatures):
 
 
 @app.get("/players")
-def list_players(team: Optional[str] = None, position: Optional[str] = None, limit: int = 50):
+def list_players(team: str | None = None, position: str | None = None, limit: int = 50):
     if not os.path.exists(PLAYERS_CLEANED_PATH):
         raise HTTPException(status_code=404, detail="No processed player data found. Run the pipeline first.")
 

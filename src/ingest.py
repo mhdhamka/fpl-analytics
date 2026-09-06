@@ -11,7 +11,7 @@ Improvements over the original version:
 import json
 import os
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import pandas as pd
 import requests
@@ -71,7 +71,7 @@ def fetch_fpl_data(
 
 
 def _snapshot_dir_for_now() -> str:
-    ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    ts = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
     path = os.path.join(HISTORY_DATA_DIR, ts)
     os.makedirs(path, exist_ok=True)
     return path
@@ -104,7 +104,7 @@ def save_raw_data(data: dict | None = None) -> dict:
     with open(os.path.join(snapshot_dir, "meta.json"), "w") as f:
         json.dump(
             {
-                "fetched_at_utc": datetime.now(timezone.utc).isoformat(),
+                "fetched_at_utc": datetime.now(UTC).isoformat(),
                 "n_players": len(players_df),
                 "n_teams": len(teams_df),
                 "n_positions": len(positions_df),
