@@ -75,8 +75,8 @@ Managing raw football data can be messy and fragmented. This project automates t
 ### 1. Clone the Repository
 
 ```cmd
-git clone https://github.com/mhdhamka/pl-analytics.git
-cd pl-analytics
+git clone https://github.com/mhdhamka/fpl-analytics.git
+cd fpl-analytics
 
 ```
 
@@ -129,34 +129,6 @@ set PYTHONPATH=. && pytest
 PYTHONPATH=. pytest
 
 ```
-
----
-
-## What changed from the original version
-
-This is a rebuild of an earlier, simpler version of this project. Notable
-upgrades:
-
-- **Ingestion** now retries with exponential backoff and keeps a timestamped
-  history of every fetch (`data/history/`), not just a single overwritten CSV.
-- **Data validation**: cleaned/raw data is checked against an explicit schema
-  before it's used downstream (via `pandera`, with a dependency-free fallback
-  if it isn't installed).
-- **Feature engineering** now includes per-90 rate stats and a
-  points-per-£million value metric, and player **position is a real model
-  feature** (one-hot encoded) instead of being ignored.
-- **Model training** does randomized hyperparameter search (not just
-  defaults) and **persists the winning pipeline to disk** — the app and API
-  load a trained model instead of retraining on every session/request.
-- **Two ways to consume the model**: the Streamlit dashboard, and a FastAPI
-  service (`/predict`, `/players`, `/model/metadata`) for anything else that
-  wants predictions.
-- **Tests, CI, Docker**: a pytest suite covering ingestion, cleaning,
-  features, and modeling; a GitHub Actions workflow that lints, tests, and
-  builds both Docker images; and a Dockerfile with separate targets for the
-  dashboard and the API.
-- **Logging** replaces `print()` throughout, writing to both console and a
-  rotating log file.
 
 ---
 
