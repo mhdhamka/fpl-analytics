@@ -3,8 +3,9 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
+from src.config import PLAYERS_CLEANED_PATH, ML_TARGET, ML_FEATURES
 
-def train_points_model(df_path="data/processed/players_cleaned.csv"):
+def train_points_model(df_path=PLAYERS_CLEANED_PATH):
     """Trains a machine learning model to predict player total points using performance metrics."""
     if not os.path.exists(df_path):
         print("Processed data not found! Please run src/clean.py first.")
@@ -12,12 +13,9 @@ def train_points_model(df_path="data/processed/players_cleaned.csv"):
 
     df = pd.read_csv(df_path)
     
-    # Define features and target variable
-    features = [
-        "minutes", "goals_scored", "assists", 
-        "clean_sheets", "expected_goals", "expected_assists", "market_value_m"
-    ]
-    target = "total_points"
+    # Define features and target variable using config variables
+    features = ML_FEATURES
+    target = ML_TARGET
     
     # Filter and clean data for modeling
     ml_df = df[features + [target]].dropna()

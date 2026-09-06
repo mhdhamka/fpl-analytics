@@ -1,13 +1,20 @@
 import os
 import pandas as pd
+from src.config import (
+    PLAYERS_RAW_PATH, 
+    TEAMS_RAW_PATH, 
+    POSITIONS_RAW_PATH, 
+    PLAYERS_CLEANED_PATH,
+    PROCESSED_DATA_DIR
+)
 
 def clean_data():
     """Loads raw FPL data, cleans it, performs feature engineering, and saves it."""
-    # Load raw data from CSVs
+    # Load raw data from CSVs using config paths
     try:
-        players_df = pd.read_csv("data/raw/players_raw.csv")
-        teams_df = pd.read_csv("data/raw/teams_raw.csv")
-        positions_df = pd.read_csv("data/raw/positions_raw.csv")
+        players_df = pd.read_csv(PLAYERS_RAW_PATH)
+        teams_df = pd.read_csv(TEAMS_RAW_PATH)
+        positions_df = pd.read_csv(POSITIONS_RAW_PATH)
     except FileNotFoundError as e:
         print("Raw data files not found! Please run src/ingest.py first.")
         raise e
@@ -36,9 +43,9 @@ def clean_data():
     for col in numeric_cols:
         df_cleaned[col] = pd.to_numeric(df_cleaned[col], errors="coerce").fillna(0)
 
-    # Save the processed dataset
-    os.makedirs("data/processed", exist_ok=True)
-    output_path = "data/processed/players_cleaned.csv"
+    # Save the processed dataset using config paths
+    os.makedirs(PROCESSED_DATA_DIR, exist_ok=True)
+    output_path = PLAYERS_CLEANED_PATH
     df_cleaned.to_csv(output_path, index=False)
     
     print(f"Cleaned dataset successfully saved to {output_path}!")

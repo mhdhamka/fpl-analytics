@@ -2,8 +2,14 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from src.config import (
+    PLAYERS_CLEANED_PATH, 
+    TOP_SCORERS_FIG_PATH, 
+    XG_VS_ACTUAL_FIG_PATH, 
+    FIGURES_DIR
+)
 
-def plot_top_goalscorers(df_path="data/processed/players_cleaned.csv"):
+def plot_top_goalscorers(df_path=PLAYERS_CLEANED_PATH):
     """Generates a styled bar chart of the top 10 goalscorers and saves it."""
     if not os.path.exists(df_path):
         print("Processed data not found! Please run src/clean.py first.")
@@ -49,15 +55,15 @@ def plot_top_goalscorers(df_path="data/processed/players_cleaned.csv"):
 
     plt.tight_layout()
     
-    # Save figure to outputs folder
-    os.makedirs("outputs/figures", exist_ok=True)
-    output_file = "outputs/figures/top_goalscorers.png"
+    # Save figure to outputs folder using config path
+    os.makedirs(FIGURES_DIR, exist_ok=True)
+    output_file = TOP_SCORERS_FIG_PATH
     plt.savefig(output_file, dpi=300)
     plt.close()
     
     print(f"Visualization successfully saved to {output_file}!")
 
-def plot_xg_vs_actual(df_path="data/processed/players_cleaned.csv"):
+def plot_xg_vs_actual(df_path=PLAYERS_CLEANED_PATH):
     """Generates a comparative scatter/regression plot of Expected Goals (xG) vs Actual Goals."""
     if not os.path.exists(df_path):
         print("Processed data not found! Please run src/clean.py first.")
@@ -95,9 +101,9 @@ def plot_xg_vs_actual(df_path="data/processed/players_cleaned.csv"):
 
     plt.tight_layout()
     
-    # Save figure to outputs folder
-    os.makedirs("outputs/figures", exist_ok=True)
-    output_file = "outputs/figures/xg_vs_actual_goals.png"
+    # Save figure to outputs folder using config path
+    os.makedirs(FIGURES_DIR, exist_ok=True)
+    output_file = XG_VS_ACTUAL_FIG_PATH
     plt.savefig(output_file, dpi=300)
     plt.close()
     
