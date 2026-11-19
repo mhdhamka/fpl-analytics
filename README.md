@@ -2,17 +2,17 @@
 
 # Fantasy Premier League Performance Analytics Pipeline (`fpl-analytics`)
 
-A modular Python analytics and machine learning pipeline built to ingest, process, visualize, and model real-time player data from the Premier League. Designed with clean architecture principles to deliver data-driven insights into player performance, expected metrics ($xG$), and points prediction.
+> A modular Python analytics and machine learning pipeline built to ingest, process, visualize, and model real-time player data from the Premier League. Designed with clean architecture principles to deliver data-driven insights into player performance, expected metrics ($xG$), and points prediction.
 
-[Live Demo](https://fpremier-league-analytics.streamlit.app/) · [Documentation](./docs) · [Architecture & Repository Layout](./docs/ARCHITECTURE.md) · [Pipeline & Modules Guide](./docs/PIPELINE.md) · [Getting Started](./docs/SETUP.md) · [Report Bug](https://github.com/mhdhamka/fpl-analytics/issues) · [Request Feature](https://github.com/mhdhamka/fpl-analytics/issues)
+[Live Demo](https://fpremier-league-analytics.streamlit.app/) · [Documentation](./docs) · [Architecture](./docs/ARCHITECTURE.md) · [Pipeline](./docs/PIPELINE.md) · [Getting Started](./docs/SETUP.md) · [Report Bug](https://github.com/mhdhamka/fpl-analytics/issues) · [Request Feature](https://github.com/mhdhamka/fpl-analytics/issues)
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Python](https://img.shields.io/badge/Python-3.x-3776ab?logo=python&logoColor=white)
-![Pandas](https://img.shields.io/badge/Pandas-2.x-150458?logo=pandas&logoColor=white)
-![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-F7931E?logo=scikit-learn&logoColor=white)
-![XGBoost](https://img.shields.io/badge/XGBoost-EB6864?logo=xgboost&logoColor=white)
-![Seaborn](https://img.shields.io/badge/Seaborn-3776AB?logo=python&logoColor=white)
-![Matplotlib](https://img.shields.io/badge/Matplotlib-3776AB?logo=python&logoColor=white)
+![License](https://img.shields.io/badge/LICENSE-MIT-0EA5E9?style=flat-square&labelColor=0F172A)
+![Python](https://img.shields.io/badge/PYTHON-3.x-38BDF8?style=flat-square&labelColor=0F172A&logo=python&logoColor=38BDF8)
+![Pandas](https://img.shields.io/badge/PANDAS-2.x-A855F7?style=flat-square&labelColor=0F172A&logo=pandas&logoColor=A855F7)
+![Scikit-Learn](https://img.shields.io/badge/SCIKIT--LEARN-FB923C?style=flat-square&labelColor=0F172A&logo=scikit-learn&logoColor=FB923C)
+![XGBoost](https://img.shields.io/badge/XGBOOST-34D399?style=flat-square&labelColor=0F172A)
+![Seaborn](https://img.shields.io/badge/SEABORN-60A5FA?style=flat-square&labelColor=0F172A)
+![Matplotlib](https://img.shields.io/badge/MATPLOTLIB-F472B6?style=flat-square&labelColor=0F172A)
 
 </div>
 

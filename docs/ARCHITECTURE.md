@@ -2,6 +2,26 @@
 
 ### System Overview
 
+A modular Python data and machine learning pipeline built to ingest, validate, transform, visualize, and serve Fantasy Premier League (FPL) analytics. It turns live Premier League player data into per-90 metrics, expected goals ($xG$) comparisons, value indicators, and predicted points across both a web UI and a REST API.
+
+### Data & Execution Flow
+
+```mermaid
+flowchart TD
+    A["FPL API"] -->|"src/ingest.py (retry/backoff)"| B["data/raw/*.csv"]
+    B -->|"snapshot archive"| C["data/history/<timestamp>/"]
+    B -->|"src/clean.py (merge + Pandera validation)"| D["Cleaned & Validated Data"]
+    D -->|"src/features.py (per-90, value, position features)"| E["data/processed/players_cleaned.csv"]
+
+    E -->|"src/visualize.py"| F["outputs/figures/*.png"]
+    E -->|"src/model.py"| G["models/points_model.joblib + metadata.json"]
+    E -->|"src/predict.py"| H["app.py (Streamlit)"]
+    E -->|"src/predict.py"| I["api/main.py (FastAPI)"]
+```
+---
+
+### Core Layers
+
 `fpl-analytics` is organized into modular ingestion, cleaning, feature engineering, visualization, training, and inference layers:
 
 1. **Ingestion (`src/ingest.py`):** Pulls live FPL data with retry/backoff logic, saves latest snapshots under `data/raw/`, and writes timestamped runs under `data/history/<timestamp>/`.
