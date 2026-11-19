@@ -6,13 +6,14 @@
 
 [Live Demo](https://fpremier-league-analytics.streamlit.app/) · [Documentation](./docs) · [Architecture](./docs/ARCHITECTURE.md) · [Pipeline](./docs/PIPELINE.md) · [Getting Started](./docs/SETUP.md) · [Report Bug](https://github.com/mhdhamka/fpl-analytics/issues) · [Request Feature](https://github.com/mhdhamka/fpl-analytics/issues)
 
-![License](https://img.shields.io/badge/LICENSE-MIT-0EA5E9?style=flat-square&labelColor=0F172A)
-![Python](https://img.shields.io/badge/PYTHON-3.x-38BDF8?style=flat-square&labelColor=0F172A&logo=python&logoColor=38BDF8)
-![Pandas](https://img.shields.io/badge/PANDAS-2.x-A855F7?style=flat-square&labelColor=0F172A&logo=pandas&logoColor=A855F7)
-![Scikit-Learn](https://img.shields.io/badge/SCIKIT--LEARN-FB923C?style=flat-square&labelColor=0F172A&logo=scikit-learn&logoColor=FB923C)
-![XGBoost](https://img.shields.io/badge/XGBOOST-34D399?style=flat-square&labelColor=0F172A)
-![Seaborn](https://img.shields.io/badge/SEABORN-60A5FA?style=flat-square&labelColor=0F172A)
-![Matplotlib](https://img.shields.io/badge/MATPLOTLIB-F472B6?style=flat-square&labelColor=0F172A)
+![License](https://img.shields.io/badge/License-MIT-3B82F6?style=for-the-badge)
+![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-2.x-150458?style=for-the-badge&logo=pandas&logoColor=white)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-ML-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white)
+![XGBoost](https://img.shields.io/badge/XGBoost-Gradient%20Boosting-EB6864?style=for-the-badge)
+![FastAPI](https://img.shields.io/badge/FastAPI-API-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Seaborn](https://img.shields.io/badge/Seaborn-Visualization-4C72B0?style=for-the-badge)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-Plotting-11557C?style=for-the-badge)
 
 </div>
 
