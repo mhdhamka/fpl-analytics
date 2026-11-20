@@ -27,17 +27,6 @@ Managing raw football data can be messy and fragmented. This project automates t
 
 ---
 
-## Tech Stack & Libraries
-
-* **Language:** Python 3.x
-* **Data Manipulation & Analysis:** Pandas, NumPy, Pandera (runtime schema validation)
-* **Web Services & UI:** FastAPI, Uvicorn, Streamlit
-* **Machine Learning:** Scikit-learn (RandomizedSearchCV, Random Forest), XGBoost
-* **Data Visualization:** Seaborn, Matplotlib
-* **Data Ingestion & DevOps:** Requests (Live FPL API), Pytest, Docker, GitHub Actions CI/CD
-
----
-
 ## Contributing
 
 Issues and pull requests are welcome. If you're picking up one of the Roadmap items above, please open an issue first so effort isn't duplicated.

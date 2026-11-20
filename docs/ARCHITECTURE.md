@@ -30,15 +30,16 @@ flowchart TD
 4. **Serving (`src/predict.py`, `app.py`, `api/main.py`):** Shares a single inference layer across the Streamlit dashboard and FastAPI service.
 
 ---
-
 ### Tech Stack & Libraries
 
-- **Language:** Python 3.x
-- **Data Manipulation & Validation:** Pandas, NumPy, Pandera
-- **Web Services & UI:** FastAPI, Uvicorn, Streamlit
-- **Machine Learning:** Scikit-learn (RandomizedSearchCV, Random Forest), XGBoost, Joblib
-- **Data Visualization:** Seaborn, Matplotlib
-- **Ingestion, DevOps & Testing:** Requests (FPL API), Pytest, Docker, DevContainers, GitHub Actions CI/CD
+| Category | Technologies & Libraries |
+| :--- | :--- |
+| **Language** | Python 3.x |
+| **Data Manipulation & Validation** | Pandas, NumPy, Pandera |
+| **Web Services & UI** | FastAPI, Uvicorn, Streamlit |
+| **Machine Learning** | Scikit-learn (`RandomizedSearchCV`, Random Forest), XGBoost, Joblib |
+| **Data Visualization** | Seaborn, Matplotlib |
+| **Ingestion, DevOps & Testing** | Requests (FPL API), Pytest, Docker, DevContainers, GitHub Actions CI/CD |
 
 ---
 
